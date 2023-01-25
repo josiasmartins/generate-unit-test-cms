@@ -1,0 +1,157 @@
+let cms_response = [];
+const generate_code__textarea = document.querySelector('.generate-code__textarea');
+const insert__textarea = document.querySelector('.insert__textarea');
+const generator_button = document.querySelector('.generator-button');
+
+function extractObject(cms) {
+    console.log(cms, "cms");
+    const nome_component = cms.step.components.type;
+    const comp = cms.step.components.component[nome_component];
+
+    for (let name in comp) {
+        let objeto = {
+            nome: name,
+            valor: comp[name]
+        };
+
+        cms_response.push(objeto);
+
+        console.log(cms_response);
+    };
+
+    console.log(cms_response, "cms response");
+    generateCode(nome_component);
+}
+
+function transformObjectJs(value) {
+    return JSON.parse(value);
+}
+
+function generateCode(nameComponent) {
+    for (let object of cms_response) {
+        generate_code__textarea.value += `pm.test("Contains ${nameComponent} with correctly text", function () {
+            pm.expect(pm.response.text()).to.include(${object.nome});
+            pm.expect(${nameComponent}.${object.nome}).to.eql("${object.valor}");
+        })`;
+
+        generate_code__textarea.value += '\n';
+
+        generate_code__textarea.setAttribute('style', 'padding-botton: 10px')
+    }
+}
+
+generator_button.addEventListener('click', () => extractObject(transformObjectJs(insert__textarea.value)));
+
+
+
+// import { download } from "./mocks.js";
+
+// const gerador = (cms) => {
+
+//     const generate = function(mock) {
+//         mock = download;
+    
+//         mock.components.component
+//         console.log(mock);
+    
+//         document.querySelector('.mock')
+    
+//     }
+    
+//     function extractObject(cms) {
+
+//         let objeto = [];
+    
+//         const nome_component = cms.step.components.type;
+//         const comp = cms.step.components.component[nome_component];
+//         for (let name in comp) {
+//             let objeto = {
+//                 nome: name,
+//                 valor: comp[name]
+//             };
+//             this.objeto.push(objeto);
+    
+//             if (typeof objeto.valor == 'object') {
+//                 for (let nome2 in objeto.valor) {
+//                     let objeto2 = {
+//                         nome2: nome2,
+//                         valor2: objeto.valor[nome2]
+//                     };
+//                     this.objeto.push(objeto2);
+//                     console.log(objeto2, "objeto 2");
+    
+//                    if (typeof objeto2.valor2 == 'object') {
+//                     for (let nome3 in objeto2.valor2) {
+//                         let objeto3 = {
+//                             nome3: nome3,
+//                             valor3: objeto2.valor[nome3]
+//                         };
+//                         this.objeto.push(objeto3);
+//                         console.log(objeto3, "objeto 3");
+//                     }
+//                    }
+//                 }
+//             }
+//             console.log(objeto)
+//         }
+
+//         return objeto;
+//     }
+
+//     function extractObject2(cms) {
+    
+//         const nome_component = cms.step.components.type;
+//         const comp = cms.step.components.component[nome_component];
+//         for (let name in comp) {
+//             let objeto = {
+//                 nome: name,
+//                 valor: comp[name]
+//             };
+    
+//             if (typeof objeto.valor == 'object') {
+//                 for (let nome2 in objeto.valor) {
+//                     let objeto2 = {
+//                         nome2: nome2,
+//                         valor2: objeto.valor[nome2]
+//                     };
+//                     console.log(objeto2, "objeto 2");
+//                 }
+//             }
+//             console.log(objeto)
+//         }
+//     }
+
+//     function extractObject3(cms) {
+    
+//         const nome_component = cms.step.components.type;
+//         const comp = cms.step.components.component[nome_component];
+//         for (let name in comp) {
+//             let objeto = {
+//                 nome: name,
+//                 valor: comp[name]
+//             };
+
+//             this.objeto.push(objeto)
+    
+//             console.log(objeto)
+//         }
+//     }
+
+//     function inputCms() {
+//         document.querySelector('#cms').va
+//     }
+
+//     function replaceUrl() {
+//         document.querySelector('.toggle').value == "hk";
+
+//     }
+
+//     return {
+//         extractObject
+//     }
+
+// }
+
+
+
+// extractObject(download);
