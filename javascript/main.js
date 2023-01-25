@@ -36,9 +36,10 @@ function generateCode(nameComponent, comp) {
             pm.test("Contains ${nameComponent} with correctly text", function () {
             pm.expect(pm.response.text()).to.include("${object.nome}");
             pm.expect(fields.${object.nome}).to.eql("${object.valor}");
-        });`;
+        });
+        `;
 
-        generate_code__textarea.value += '\n';
+        //generate_code__textarea.value += '\n';
 
         generate_code__textarea.setAttribute('style', 'padding-botton: 10px')
     }
