@@ -20,24 +20,44 @@ function extractObject(cms) {
     };
 
     console.log(cms_response, "cms response");
-    generateCode(nome_component);
+    generateCode(nome_component, comp);
 }
 
 function transformObjectJs(value) {
     return JSON.parse(value);
 }
 
-function generateCode(nameComponent) {
+function generateCode(nameComponent, comp) {
+
+    addConst(nameComponent, comp);
+    
     for (let object of cms_response) {
-        generate_code__textarea.value += `pm.test("Contains ${nameComponent} with correctly text", function () {
-            pm.expect(pm.response.text()).to.include(${object.nome});
-            pm.expect(${nameComponent}.${object.nome}).to.eql("${object.valor}");
-        })`;
+        generate_code__textarea.value += `
+            pm.test("Contains ${nameComponent} with correctly text", function () {
+            pm.expect(pm.response.text()).to.include("${object.nome}");
+            pm.expect(fields.${object.nome}).to.eql("${object.valor}");
+        });`;
 
         generate_code__textarea.value += '\n';
 
         generate_code__textarea.setAttribute('style', 'padding-botton: 10px')
     }
+}
+
+function addConst(component, comp) {
+    const lenght = Object.keys(comp).length;
+    generate_code__textarea.value = `
+        // Verifica a quantidade de campos associado ao componente ${component}
+        var data = pm.response.json;
+        var fields = data.step.components[component];
+        var totalField = fields.length;
+
+        pm.test("The number of fields is correct | Total fields must be ${lenght}", function () => {
+            pm.expect(totalField).to.eql(${lenght});
+        });
+
+        // Verifica campos associados ao componente e os valores do mesmo
+    `;
 }
 
 generator_button.addEventListener('click', () => extractObject(transformObjectJs(insert__textarea.value)));
