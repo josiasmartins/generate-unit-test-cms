@@ -1,6 +1,6 @@
 * {
-    --purple: "660a8d",
-
+    --purple: "660a8d";
+    margin: 0
 }
 
 .textare--center {
@@ -68,6 +68,8 @@ textarea:hover {
 
 h1 {
     font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin: 50px;
 }
 
 /* width */
