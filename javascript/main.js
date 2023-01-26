@@ -6,9 +6,7 @@ const generator_button = document.querySelector('.generator-button');
 function extractObject(cms) {
     console.log(cms, "cms");
     const nome_component = cms.step.components.type;
-    const comp = cms.step.components.component[nome_component] 
-        ? cms.step.components.component[nome_component] 
-        : `cms.step.components.component.${nome_component}`;
+    const comp = cms.step.components.component[nome_component];
 
     for (let name in comp) {
         let objeto = {
