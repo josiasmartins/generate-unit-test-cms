@@ -53,7 +53,7 @@ function addConst(nameComponent, component_object) {
         var fields = data.step.components.component["${nameComponent}"];
         var totalField = Object.keys(fields).length;
 
-        pm.test("The number of fields is correct | Total fields must be ${lenght}", function () => {
+        pm.test("The number of fields is correct | Total fields must be ${lenght}", function () {
             pm.expect(totalField).to.eql(${lenght});
         });
 
