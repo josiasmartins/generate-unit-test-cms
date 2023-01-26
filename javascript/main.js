@@ -27,9 +27,9 @@ function transformObjectJs(value) {
     return JSON.parse(value);
 }
 
-function generateCode(nameComponent, comp) {
+function generateCode(nameComponent, component_object) {
 
-    addConst(nameComponent, comp);
+    addConst(nameComponent, component_object);
     
     for (let object of cms_response) {
         generate_code__textarea.value += `
@@ -45,13 +45,13 @@ function generateCode(nameComponent, comp) {
     }
 }
 
-function addConst(component, comp) {
-    const lenght = Object.keys(comp).length;
+function addConst(nameComponent, component_object) {
+    const lenght = Object.keys(component_object).length;
     generate_code__textarea.value = `
-        // Verifica a quantidade de campos associado ao componente ${component}
+        // Verifica a quantidade de campos associado ao componente ${nameComponent}
         var data = pm.response.json;
-        var fields = data.step.components[component];
-        var totalField = fields.length;
+        var fields = data.step.components.component[${nameComponent}];
+        var totalField = Object.keys(fields).length;
 
         pm.test("The number of fields is correct | Total fields must be ${lenght}", function () => {
             pm.expect(totalField).to.eql(${lenght});
