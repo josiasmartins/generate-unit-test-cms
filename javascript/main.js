@@ -50,7 +50,7 @@ function addConst(nameComponent, component_object) {
     generate_code__textarea.value = `
         // Verifica a quantidade de campos associado ao componente ${nameComponent}
         var data = pm.response.json;
-        var fields = data.step.components.component[${nameComponent}];
+        var fields = data.step.components.component["${nameComponent}"];
         var totalField = Object.keys(fields).length;
 
         pm.test("The number of fields is correct | Total fields must be ${lenght}", function () => {
