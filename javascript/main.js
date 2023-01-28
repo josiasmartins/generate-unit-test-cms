@@ -65,6 +65,11 @@ function addConst(nameComponent, component_object) {
     `;
 }
 
+function copy() {
+    generate_code__textarea.select();
+    document.execCommand("copy");
+}
+
 generator_button.addEventListener('click', () => extractObject(transformObjectJs(insert__textarea.value)));
 
 
