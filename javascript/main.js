@@ -33,23 +33,27 @@ function generateCode(nameComponent, component_object) {
     
     for (let object of cms_response) {
         generate_code__textarea.value += `
-            pm.test("Contains ${nameComponent} with correctly text", function () {
+            pm.test("Contains ${object.nome} with correctly text", function () {
             pm.expect(pm.response.text()).to.include("${object.nome}");
-            pm.expect(fields.${object.nome}).to.eql("${object.valor}");
+            pm.expect(fields.${object.nome}).to.eql(${verifyType(object.valor)});
         });
         `;
 
         //generate_code__textarea.value += '\n';
-
-        generate_code__textarea.setAttribute('style', 'padding-botton: 10px')
     }
+}
+
+function verifyType(object) {
+    if (typeof object == 'string') return `"${object}"`;
+
+    return object;
 }
 
 function addConst(nameComponent, component_object) {
     const lenght = Object.keys(component_object).length;
     generate_code__textarea.value = `
         // Verifica a quantidade de campos associado ao componente ${nameComponent}
-        var data = pm.response.json;
+        var data = pm.response.json();
         var fields = data.step.components.component["${nameComponent}"];
         var totalField = Object.keys(fields).length;
 
