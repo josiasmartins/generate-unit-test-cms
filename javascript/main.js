@@ -36,7 +36,7 @@ function getFirstField(comp) {
  * Função que modifca o indece (keys) do array... remove o ponto e adicione o [] com numero
  */
 function formaterIndex() {
-    const pattern = /.(\d)./;
+    const pattern = /.(\d)/;
     for (let index of cms_response) {
         index.keys = index.keys.replace(pattern, '[$1]')
     }
@@ -131,7 +131,10 @@ function addConst(nameComponent, component_object) {
  */
 function copy() {
     generate_code__textarea.select();
+    /* Copia o texto selecionado */
     document.execCommand("copy");
+    // remove a selecao de texto para que o usuario não veja
+    window.getSelection().removeAllRanges();
 }
 
 generator_button.addEventListener('click', () => main(transformObjectJs(insert__textarea.value)));
