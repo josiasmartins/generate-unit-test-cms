@@ -36,9 +36,9 @@ function getFirstField(comp) {
  * Função que modifca o indece (keys) do array... remove o ponto e adicione o [] com numero
  */
 function formaterIndex() {
-    const pattern = /.(\d)/;
+    const pattern = /.(\d)(\.)/;
     for (let index of cms_response) {
-        index.keys = index.keys.replace(pattern, '[$1]')
+        index.keys = index.keys.replace(pattern, '[$1]$2')
     }
 }
 
